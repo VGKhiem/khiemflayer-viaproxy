@@ -1,4 +1,4 @@
-import { Bot, BotOptions, createBot as orgCreateBot } from "mineflayer";
+import { Bot, BotOptions, createBot as orgCreateBot } from "khiemflayer";
 import { ping } from "minecraft-protocol";
 import { ping as bdPing } from "bedrock-protocol";
 import { supportedVersions } from "minecraft-data";
@@ -12,7 +12,7 @@ import { existsSync, mkdirSync } from "fs";
 import "prismarine-registry";
 import { VIA_PROXY_CMD } from "./constants";
 
-const debug = require("debug")("mineflayer-viaproxy");
+const debug = require("debug")("khiemflayer-viaproxy");
 
 const currentLatestVersion = supportedVersions.pc[supportedVersions.pc.length - 1]; // latest version;
 
@@ -32,13 +32,14 @@ const cmpVersions = (first: string, second: string) => {
   return 0;
 };
 
-async function detectVersion(host: string | undefined, port: number | undefined) {
+async function detectVersion(options: BotOptions & ViaProxyOpts) {
   // try java first, then bedrock
 
   let ver;
   let bedrock = false;
 
-  host = host ?? "127.0.0.1";
+  let host = options.host ?? "127.0.0.1";
+  let port = options.port;
 
   if ( port != null && isNaN(port)) {
     port = undefined;
@@ -63,7 +64,8 @@ async function detectVersion(host: string | undefined, port: number | undefined)
       host: host1,
       port: port1,
       closeTimeout: 5000,
-    });
+      connect: options.connect,
+    } as any);
 
     debug(`Server "${host1}:${port1}" is Java.`);
     if (test.version instanceof String) {
@@ -145,7 +147,7 @@ async function detectVersion(host: string | undefined, port: number | undefined)
 export async function createBot(options: BotOptions & ViaProxyOpts, oCreateBot = orgCreateBot) {
   let useViaProxy = options.forceViaProxy ?? false;
 
-  const { host: rHost, port: rPort, ver, bedrock } = await detectVersion(options.host, options.port);
+  const { host: rHost, port: rPort, ver, bedrock } = await detectVersion(options);
 
   useViaProxy = useViaProxy || (bedrock || !supportedVersions.pc.includes(ver));
 
@@ -202,6 +204,11 @@ export async function createBot(options: BotOptions & ViaProxyOpts, oCreateBot =
     newOpts.host = "127.0.0.1";
     newOpts.port = port;
     newOpts.version = currentLatestVersion;
+    
+    // We must delete connect because the local bot shouldn't use the proxy to connect to localhost
+    if (newOpts.connect) {
+      delete newOpts.connect;
+    }
 
     if (auth !== AuthType.ACCOUNT) newOpts.auth = "offline";
     else {
@@ -229,9 +236,9 @@ export async function createBot(options: BotOptions & ViaProxyOpts, oCreateBot =
           debug("ViaProxy started successfully");
           viaProxy!.stdout.removeListener("data", stdOutListener);
           viaProxy!.stderr.removeListener("data", stdErrListener);
-          setTimeout(() => {
+          setTimeout(async () => {
             debug(`Launching bot on version ${newOpts.version} with ViaProxy.`);
-            bot = oCreateBot(newOpts);
+            bot = await oCreateBot(newOpts);
             bot.on("end", cleanupProxy);
             openAuthLogin(bot).then(resolve);
           }, 1000);
@@ -270,7 +277,7 @@ export async function createBot(options: BotOptions & ViaProxyOpts, oCreateBot =
   } else {
     debug(`For version ${ver}, ViaProxy is not needed. Launching bot normally.`);
     // perform current bot setup.
-    bot = oCreateBot(options);
+    bot = await oCreateBot(options);
   }
 
   return bot;

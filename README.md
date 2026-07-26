@@ -1,14 +1,14 @@
-# mineflayer-viaproxy
+# khiemflayer-viaproxy
 
-[![NPM version](https://img.shields.io/npm/v/mineflayer-viaproxy.svg)](http://npmjs.com/package/mineflayer-viaproxy)
+[![NPM version](https://img.shields.io/npm/v/khiemflayer-viaproxy.svg)](http://npmjs.com/package/khiemflayer-viaproxy)
 
 
-A mineflayer plugin that allows you to connect to a server through a ViaVersion proxy.
+A khiemflayer plugin that allows you to connect to a server through a ViaVersion proxy.
 
 Why? Because I'm tired of people asking for version updates.
 
 If you have issues, join [here](https://discord.gg/g3w4G88y) for support. 
-Alternatively, [here](https://discord.gg/prismarinejs-413438066984747026) for general mineflayer support.
+Alternatively, [here](https://discord.gg/prismarinejs-413438066984747026) for general khiemflayer support.
 
 
 ### TODOS
@@ -22,13 +22,13 @@ Alternatively, [here](https://discord.gg/prismarinejs-413438066984747026) for ge
 ## Installation
 
 ```bash
-npm install mineflayer-viaproxy
+npm install khiemflayer-viaproxy
 ```
 
 ## Usage
 
 ```js
-const {createBot} = require('mineflayer-viaproxy')
+const {createBot} = require('khiemflayer-viaproxy')
 
 // only difference is that this must be awaited now.
 const bot = await createBot({...})

@@ -1,7 +1,7 @@
 import { ChildProcessWithoutNullStreams } from "child_process";
 import "prismarine-registry";
 
-declare module "mineflayer" {
+declare module "khiemflayer" {
   interface Bot {
     viaProxy?: ChildProcessWithoutNullStreams;
   }

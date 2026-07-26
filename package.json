@@ -1,22 +1,22 @@
 {
-  "name": "mineflayer-viaproxy",
-  "version": "0.3.6",
-  "description": "ViaProxy support for mineflayer.",
+  "name": "khiemflayer-viaproxy",
+  "version": "0.0.1",
+  "description": "ViaProxy support for khiemflayer.",
   "main": "dist/index.js",
   "author": "GenerelSchwerz",
   "license": "MIT",
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
-    "mineflayer-viaproxy": "file:./",
+    "khiemflayer-viaproxy": "file:./",
     "typescript": "^5.8.3"
   },
   "dependencies": {
     "bedrock-protocol": "^3.45.0",
     "debug": "^4.4.1",
     "js-yaml": "^4.1.0",
+    "khiemflayer": "^1.1.5",
     "minecraft-data": "^3.89.0",
-    "minecraft-protocol": "^1.57.0",
-    "mineflayer": "^4.29.0"
+    "minecraft-protocol": "^1.57.0"
   },
   "scripts": {
     "build": "tsc",

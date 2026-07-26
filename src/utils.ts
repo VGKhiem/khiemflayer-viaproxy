@@ -1,12 +1,12 @@
 import { appendFileSync, createWriteStream, existsSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "fs";
 import { join } from "path";
-import { Bot } from "mineflayer";
+import { Bot } from "khiemflayer";
 import { BASE_VIAPROXY_URL, BASE_GEYSER_URL, VIA_PROXY_CMD } from "./constants";
 import { exec } from "child_process";
 
 import jsyaml from "js-yaml";
 
-const debug = require("debug")("mineflayer-viaproxy");
+const debug = require("debug")("khiemflayer-viaproxy");
 
 export async function openAuthLogin(bot: Bot) {
   const listener = (packet: any) => {
@@ -357,7 +357,7 @@ export async function checkJavaVersion(javaLoc: string): Promise<number> {
 }
 
 export async function openViaProxyGUI(javaLoc: string, fullpath: string, cwd: string) {
-  console.log("opening ViaProxy. This is done to add your account.\nSimply close the window when you're done to allow the mineflayer code to continue.");
+  console.log("opening ViaProxy. This is done to add your account.\nSimply close the window when you're done to allow the khiemflayer code to continue.");
 
   const test = exec(VIA_PROXY_CMD(javaLoc, fullpath, false), { cwd: cwd });
 

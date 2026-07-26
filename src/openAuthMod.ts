@@ -1,6 +1,6 @@
-import type {Bot} from "mineflayer";
+import type {Bot} from "khiemflayer";
 
-const debug = require("debug")("mineflayer-viaproxy");
+const debug = require("debug")("khiemflayer-viaproxy");
 
 export async function openAuthLogin(bot: Bot) {
     const listener = (packet: any) => {

@@ -1,0 +1,25 @@
+{
+  "name": "mineflayer-viaproxy",
+  "version": "0.3.6",
+  "description": "ViaProxy support for mineflayer.",
+  "main": "dist/index.js",
+  "author": "GenerelSchwerz",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "mineflayer-viaproxy": "file:./",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "bedrock-protocol": "^3.45.0",
+    "debug": "^4.4.1",
+    "js-yaml": "^4.1.0",
+    "minecraft-data": "^3.89.0",
+    "minecraft-protocol": "^1.57.0",
+    "mineflayer": "^4.29.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build"
+  }
+}
